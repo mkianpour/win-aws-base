@@ -6,4 +6,4 @@ description      'Installs/Configures win-aws-base'
 long_description 'Installs/Configures win-aws-base'
 version          '0.1.0'
 
-depends 'apt'
+depends 'chocolatey'
