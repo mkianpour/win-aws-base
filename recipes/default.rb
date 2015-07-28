@@ -8,8 +8,6 @@
 #
 
 include_recipe 'chocolatey'
-{sysinternals 7zip notepadplusplus}.each do |pack|
+%w(sysinternals 7zip notepadplusplus).each do |pack|
   chocolatey pack
 end
-
-
