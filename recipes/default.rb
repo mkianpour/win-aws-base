@@ -8,6 +8,6 @@
 #
 
 include_recipe 'chocolatey'
-%w(sysinternals 7zip notepadplusplus).each do |pack|
+%w(awscli ysinternals 7zip notepadplusplus).each do |pack|
   chocolatey pack
 end
