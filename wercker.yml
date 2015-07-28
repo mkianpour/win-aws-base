@@ -1,0 +1,28 @@
+box: wercker/rvm
+no-response-timeout: 60
+command-timeout: 60
+services:
+  - box-cutter/chefdk@0.1.5
+build:
+  steps:
+    - bundle-install
+    - script:
+        name: rubocop
+        code: bundle exec rubocop
+    - script:
+        name: foodcritic
+        code: bundle exec foodcritic -f 'any' .
+    - script:
+        name: rspec
+        code: bundle exec rspec
+    - script:
+        name: test kitchen
+        code: bundle exec kitchen test
+  after-steps:
+    - script:
+        name: test kitchen destroy
+        code: bundle exec kitchen destroy
+    - sherzberg/slack-notify:
+        subdomain: $SLACK_SUBDOMAIN
+        token: $SLACK_TOKEN
+        channel: $SLACK_CHANNEL

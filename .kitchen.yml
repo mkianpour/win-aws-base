@@ -1,0 +1,41 @@
+---
+driver:
+  name: ec2
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
+  region: <%= ENV['AWS_REGION'] %>
+  availability_zone: <%= ENV['AWS_AVAIL_ZONE'] %>
+  instance_type: t2.micro
+  require_chef_omnibus: true
+  iam_profile_name: test-kitchen
+  block_device_mappings:
+    - ebs_device_name: /dev/sda1
+      ebs_volume_size: 20
+      ebs_volume_type: gp2
+      ebs_delete_on_termination: true
+
+transport:
+  ssh_key: <%= File.expand_path('ssh/test-kitchen.pem') %>
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: aws-ubuntu-14.04
+    driver:
+      image_id: ami-234ecc54
+    transport:
+      username: ubuntu
+  - name: aws-centos-6.6
+    driver:
+      image_id: ami-b73c5dc0
+    transport:
+      username: root
+
+suites:
+  - name: default
+    run_list:
+      - recipe[win-aws-base::default]
+    attributes:
+      win-aws-base:

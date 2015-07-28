@@ -1,0 +1,20 @@
+AlignParameters:
+  Enabled: false
+
+Encoding:
+  Enabled: false
+
+LineLength:
+  Max: 200
+
+HashSyntax:
+  EnforcedStyle: ruby19
+
+RedundantBegin:
+  Enabled: false
+
+UselessAssignment:
+  Enabled: false
+
+MethodLength:
+  Enabled: false
